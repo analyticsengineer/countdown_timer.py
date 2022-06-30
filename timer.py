@@ -25,6 +25,7 @@ try:
    countdown(int(float(t)))
 
    st.write('Timer Completed!')
+   st.balloons()
 
 except:
       pass
