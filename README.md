@@ -11,5 +11,4 @@
 ### Animation Files
 - [Ouch!](https://icons8.com/illustrations/)
 ---
-[View App](https://designegycreatives-countdown-timer-py-timer-kujsth.streamlitapp.com/)
-
+[View App](https://countdowntimer.streamlit.app/)
