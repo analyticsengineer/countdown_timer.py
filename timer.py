@@ -12,7 +12,7 @@ col2.image(image)
 # Function to play alarm sound
 def play_alarm():
     # Replace this with your actual GitHub raw URL
-    alarm_url = "https://raw.githubusercontent.com/yourusername/yourrepo/main/alarm.mp3"
+    alarm_url = "https://github.com/analyticsengineer/countdown_timer.py/blob/main/alarm.mp3"
     st.audio(alarm_url, format='audio/mp3')
 
 
