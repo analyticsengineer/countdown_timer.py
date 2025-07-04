@@ -1,5 +1,4 @@
 import streamlit as st
-import base64
 import time
 from PIL import Image
 
@@ -9,12 +8,19 @@ col1, col2 = st.columns(2)
 col1.header("⏱️ Countdown Timer App")
 col2.image(image)
 
-# Function to play alarm sound
+# Function to play alarm sound from GitHub (auto-play)
 def play_alarm():
-    # Replace this with your actual GitHub raw URL
-    alarm_url = "https://github.com/analyticsengineer/countdown_timer.py/blob/main/alarm.mp3"
-    st.audio(alarm_url, format='audio/mp3')
+    alarm_url = "https://raw.githubusercontent.com/analyticsengineer/countdown_timer.py/main/alarm.mp3"
+    
+    # Auto-play using HTML
+    st.markdown(f"""
+        <audio autoplay>
+            <source src="{alarm_url}" type="audio/mpeg">
+        </audio>
+    """, unsafe_allow_html=True)
 
+    # Optional manual fallback
+    st.audio(alarm_url, format='audio/mp3')
 
 # Countdown logic
 def countdown(total_seconds):
@@ -27,7 +33,7 @@ def countdown(total_seconds):
         time.sleep(1)
         total_seconds -= 1
     placeholder.markdown("### ⏰ Time's up!")
-    play_alarm("alarm.mp3")  # Make sure this file is in your project directory
+    play_alarm()
 
 # UI for time input
 st.subheader("Enter Countdown Time")
