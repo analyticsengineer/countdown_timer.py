@@ -8,7 +8,7 @@ col1, col2 = st.columns(2)
 col1.header("⏱️ Countdown Timer App")
 col2.image(image)
 
-# Function to play alarm sound from GitHub (auto-play)
+# ✅ Function to auto-play alarm sound from GitHub
 def play_alarm():
     alarm_url = "https://raw.githubusercontent.com/analyticsengineer/countdown_timer.py/main/alarm.mp3"
     
@@ -16,13 +16,11 @@ def play_alarm():
     st.markdown(f"""
         <audio autoplay>
             <source src="{alarm_url}" type="audio/mpeg">
+            Your browser does not support the audio element.
         </audio>
     """, unsafe_allow_html=True)
 
-    # Optional manual fallback
-    st.audio(alarm_url, format='audio/mp3')
-
-# Countdown logic
+# ✅ Countdown logic
 def countdown(total_seconds):
     placeholder = st.empty()
     while total_seconds > 0:
@@ -33,9 +31,9 @@ def countdown(total_seconds):
         time.sleep(1)
         total_seconds -= 1
     placeholder.markdown("### ⏰ Time's up!")
-    play_alarm()
+    play_alarm()  # Play alarm sound
 
-# UI for time input
+# ✅ UI for time input
 st.subheader("Enter Countdown Time")
 h_col, m_col, s_col = st.columns(3)
 
@@ -46,9 +44,10 @@ with m_col:
 with s_col:
     seconds = st.number_input("Seconds", min_value=0, max_value=59, step=1, value=0)
 
-# Calculate total time in seconds
+# ✅ Calculate total time in seconds
 total_time = hours * 3600 + minutes * 60 + seconds
 
+# ✅ Run countdown
 if total_time > 0:
     if st.button("Start Timer"):
         countdown(total_time)
