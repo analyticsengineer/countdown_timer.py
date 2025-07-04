@@ -10,10 +10,11 @@ col1.header("⏱️ Countdown Timer App")
 col2.image(image)
 
 # Function to play alarm sound
-def play_alarm(file_path):
-    audio_file = open(file_path, 'rb')
-    audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format='audio/mp3')
+def play_alarm():
+    # Replace this with your actual GitHub raw URL
+    alarm_url = "https://raw.githubusercontent.com/yourusername/yourrepo/main/alarm.mp3"
+    st.audio(alarm_url, format='audio/mp3')
+
 
 # Countdown logic
 def countdown(total_seconds):
