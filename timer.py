@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 from PIL import Image
+import base64
 
 # Set page config
 st.set_page_config(page_title="Countdown Timer", layout="centered")
@@ -11,14 +12,24 @@ col1, col2 = st.columns(2)
 col1.header("⏱️ Countdown Timer App")
 col2.image(image)
 
-# Alarm URL (RAW GitHub audio file)
-ALARM_URL = "https://raw.githubusercontent.com/analyticsengineer/countdown_timer.py/main/alarm.mp3"
-
 # Initialize session state
 if "alarm_triggered" not in st.session_state:
     st.session_state.alarm_triggered = False
 
-# Countdown function
+# 🔊 Function to embed local alarm.mp3 as base64 and autoplay
+def play_alarm():
+    with open("alarm.mp3", "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        audio_html = f"""
+            <audio autoplay>
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            </audio>
+            <p>🔔 Alarm is playing...</p>
+        """
+        st.markdown(audio_html, unsafe_allow_html=True)
+
+# ⏳ Countdown logic
 def countdown(total_seconds):
     placeholder = st.empty()
     while total_seconds > 0:
@@ -29,9 +40,9 @@ def countdown(total_seconds):
         time.sleep(1)
         total_seconds -= 1
     placeholder.markdown("### ⏰ Time's up!")
-    st.session_state.alarm_triggered = True  # Mark alarm to play after rerun
+    st.session_state.alarm_triggered = True
 
-# UI for input
+# 🎛️ UI Input
 st.subheader("Enter Countdown Time")
 h_col, m_col, s_col = st.columns(3)
 
@@ -42,24 +53,19 @@ with m_col:
 with s_col:
     seconds = st.number_input("Seconds", min_value=0, max_value=59, step=1, value=0)
 
-# Compute total seconds
+# 🔁 Calculate total time
 total_time = hours * 3600 + minutes * 60 + seconds
 
-# Start timer button
+# ▶️ Start Timer
 if total_time > 0:
     if st.button("Start Timer"):
-        st.session_state.alarm_triggered = False  # Reset alarm state
+        st.session_state.alarm_triggered = False  # Reset before run
         countdown(total_time)
         st.success("Timer Completed!")
         st.balloons()
 else:
     st.info("Please set a valid countdown time.")
 
-# 🔊 Alarm autoplay HTML (only appears after timer completes)
+# 🔔 Play alarm if flagged
 if st.session_state.alarm_triggered:
-    st.markdown(f"""
-        <audio autoplay>
-            <source src="{ALARM_URL}" type="audio/mpeg">
-        </audio>
-        <p>🔔 Alarm is playing...</p>
-    """, unsafe_allow_html=True)
+    play_alarm()
