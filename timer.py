@@ -25,7 +25,6 @@ def play_alarm():
             <audio autoplay>
                 <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
             </audio>
-            <p>🔔 Alarm is playing...</p>
         """
         st.markdown(audio_html, unsafe_allow_html=True)
 
