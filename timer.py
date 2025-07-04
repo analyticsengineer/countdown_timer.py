@@ -9,6 +9,12 @@ col1, col2 = st.columns(2)
 col1.header("⏱️ Countdown Timer App")
 col2.image(image)
 
+# Function to play alarm sound
+def play_alarm(file_path):
+    audio_file = open(file_path, 'rb')
+    audio_bytes = audio_file.read()
+    st.audio(audio_bytes, format='audio/mp3')
+
 # Countdown logic
 def countdown(total_seconds):
     placeholder = st.empty()
@@ -20,6 +26,7 @@ def countdown(total_seconds):
         time.sleep(1)
         total_seconds -= 1
     placeholder.markdown("### ⏰ Time's up!")
+    play_alarm("alarm.mp3")  # Make sure this file is in your project directory
 
 # UI for time input
 st.subheader("Enter Countdown Time")
